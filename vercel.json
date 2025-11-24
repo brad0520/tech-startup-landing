@@ -1,9 +1,3 @@
 {
-  "regions": ["icn1"],
-  "functions": {
-    "**/*.ts": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  "regions": ["icn1"]
 }
