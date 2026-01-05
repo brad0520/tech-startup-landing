@@ -49,7 +49,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:block">
+            <nav className="hidden lg:block">
               <ul className="flex space-x-8">
                 {navItems.map((item) => (
                   <li key={item.name}>
@@ -67,7 +67,7 @@ export default function Header() {
             {/* Desktop CTA Button */}
             <Link
               href="/contact"
-              className="hidden md:block bg-gradient-to-r from-purple-600 to-cyan-600 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+              className="hidden lg:block bg-gradient-to-r from-purple-600 to-cyan-600 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
             >
               Start Free Trial
             </Link>
@@ -75,7 +75,7 @@ export default function Header() {
             {/* Mobile Hamburger Button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden flex flex-col justify-center items-center w-10 h-10 z-60"
+              className="lg:hidden flex flex-col justify-center items-center w-10 h-10 z-60"
               aria-label="Toggle menu"
             >
               <span
@@ -101,7 +101,7 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-40 md:hidden"
+          className="fixed inset-0 z-40 lg:hidden"
           style={{ top: '80px' }}
         >
           {/* Backdrop */}
