@@ -2,14 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   scroll-behavior: smooth;
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
+  --background: #09090b;
+  --foreground: #fafafa;
+  --emerald: #10b981;
+  --cyan: #06b6d4;
 }
 
 body {
@@ -19,17 +20,25 @@ body {
   overflow-x: hidden;
 }
 
+/* Grid pattern background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #09090b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #8b5cf6, #06b6d4);
+  background: linear-gradient(180deg, #10b981, #06b6d4);
   border-radius: 10px;
 }
 
@@ -39,11 +48,20 @@ body {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-12px);
   }
 }
 
-@keyframes gradient {
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
   }
@@ -55,11 +73,37 @@ body {
   }
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-.drop-shadow-glow {
-  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+@keyframes blink-caret {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #10b981; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.glow-emerald {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15), 0 0 60px rgba(16, 185, 129, 0.05);
+}
+
+.glow-border-hover {
+  transition: all 0.3s ease;
+}
+
+.glow-border-hover:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.1), inset 0 0 30px rgba(16, 185, 129, 0.02);
+}
+
+/* Code block styling */
+.code-block {
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }

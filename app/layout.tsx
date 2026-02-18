@@ -1,39 +1,57 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "TechVenture - 혁신을 만드는 스타트업",
-    template: "%s | TechVenture",
+    default: "NeuralX - AI 기반 비즈니스 인텔리전스 플랫폼",
+    template: "%s | NeuralX",
   },
-  description: "최첨단 기술로 세상을 바꾸는 테크 스타트업. AI, 빅데이터, 클라우드 솔루션으로 비즈니스 혁신을 이끕니다.",
-  keywords: ["스타트업", "테크 스타트업", "IT 기업", "혁신", "AI", "빅데이터", "클라우드", "벤처", "기술 기업"],
-  authors: [{ name: "TechVenture" }],
-  creator: "TechVenture",
+  description:
+    "차세대 인공지능 기술로 비즈니스 인사이트를 자동화하는 AI 플랫폼. 실시간 데이터 분석, 예측 모델링, 자동화 워크플로우를 제공합니다.",
+  keywords: [
+    "AI 플랫폼",
+    "인공지능",
+    "비즈니스 인텔리전스",
+    "데이터 분석",
+    "머신러닝",
+    "자동화",
+    "SaaS",
+    "스타트업",
+    "딥러닝",
+    "예측 분석",
+  ],
+  authors: [{ name: "NeuralX" }],
+  creator: "NeuralX",
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://techventure.io",
-    siteName: "TechVenture",
-    title: "TechVenture - 혁신을 만드는 스타트업",
-    description: "최첨단 기술로 세상을 바꾸는 테크 스타트업",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "TechVenture" }],
+    url: "https://neuralx.io",
+    siteName: "NeuralX",
+    title: "NeuralX - AI 기반 비즈니스 인텔리전스 플랫폼",
+    description:
+      "차세대 인공지능 기술로 비즈니스 인사이트를 자동화하는 AI 플랫폼",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NeuralX AI Platform",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TechVenture - 혁신을 만드는 스타트업",
-    description: "최첨단 기술로 세상을 바꾸는 테크 스타트업",
+    title: "NeuralX - AI 기반 비즈니스 인텔리전스 플랫폼",
+    description:
+      "차세대 인공지능 기술로 비즈니스 인사이트를 자동화하는 AI 플랫폼",
     images: ["/og-image.jpg"],
   },
   robots: { index: true, follow: true },
@@ -47,13 +65,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link rel="canonical" href="https://techventure.io" />
-        <meta name="theme-color" content="#6366f1" />
+        <link rel="canonical" href="https://neuralx.io" />
+        <meta name="theme-color" content="#10b981" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${inter.variable} font-sans antialiased bg-[#09090b]`}>
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

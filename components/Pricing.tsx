@@ -1,82 +1,111 @@
+import Link from 'next/link'
+
 export default function Pricing() {
   const plans = [
     {
       name: 'Starter',
-      price: '무료',
-      description: '개인 및 소규모 프로젝트',
-      features: ['월 1,000 요청', '기본 분석', '커뮤니티 지원', '1개 프로젝트'],
+      price: 'Free',
+      period: '',
+      description: '개인 프로젝트와 프로토타이핑',
+      features: [
+        '월 1,000 API calls',
+        '기본 모델 3종',
+        '커뮤니티 지원',
+        '1 project',
+        '7일 데이터 보관',
+      ],
     },
     {
       name: 'Pro',
       price: '₩49,000',
       period: '/월',
-      description: '성장하는 스타트업',
-      features: ['무제한 요청', '고급 분석', '우선 지원', '10개 프로젝트', 'API 액세스'],
+      description: '성장하는 스타트업과 팀',
+      features: [
+        '무제한 API calls',
+        '전체 모델 라이브러리',
+        '우선 이메일 지원',
+        '10 projects',
+        'API 키 관리',
+        '90일 데이터 보관',
+      ],
       popular: true,
     },
     {
       name: 'Enterprise',
-      price: '맞춤 견적',
-      description: '대규모 기업',
-      features: ['맞춤형 솔루션', '전담 지원', '온프레미스 배포', '무제한 프로젝트', 'SLA 보장'],
+      price: 'Custom',
+      period: '',
+      description: '대규모 조직과 맞춤 솔루션',
+      features: [
+        '맞춤형 API limits',
+        '커스텀 모델 학습',
+        '전담 솔루션 엔지니어',
+        '무제한 projects',
+        'SLA 99.99%',
+        '온프레미스 배포',
+        'SSO & SAML',
+      ],
     },
   ]
 
   return (
-    <section id="pricing" className="py-20 px-6 bg-black">
+    <section className="py-24 px-6 relative border-t border-zinc-800/50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            합리적인 <span className="text-purple-400">가격</span>
+        <div className="max-w-2xl mb-16">
+          <p className="text-emerald-400 text-sm font-medium mb-3 tracking-wide uppercase">Pricing</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
+            Simple, transparent pricing
           </h2>
-          <p className="text-xl text-gray-400">
-            비즈니스 규모에 맞는 최적의 플랜을 선택하세요
+          <p className="text-zinc-400 text-lg">
+            비즈니스 규모에 맞는 플랜을 선택하세요. 숨겨진 비용 없이 투명한 가격.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-4">
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`relative bg-white/5 backdrop-blur-sm border rounded-2xl p-8 hover:scale-105 transition-all ${
+              className={`relative bg-zinc-900/50 border rounded-xl p-6 transition-all ${
                 plan.popular
-                  ? 'border-purple-500 shadow-lg shadow-purple-500/20'
-                  : 'border-white/10'
+                  ? 'border-emerald-500/40 glow-emerald'
+                  : 'border-zinc-800 glow-border-hover'
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-cyan-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                  인기
+                <div className="absolute -top-3 left-6 bg-emerald-500 text-black text-xs font-semibold px-3 py-1 rounded-full">
+                  Most Popular
                 </div>
               )}
 
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{plan.description}</p>
-                <div className="text-4xl font-bold text-white">
-                  {plan.price}
-                  {plan.period && <span className="text-xl text-gray-400">{plan.period}</span>}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-white mb-1">{plan.name}</h3>
+                <p className="text-zinc-500 text-sm mb-4">{plan.description}</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-bold text-white">{plan.price}</span>
+                  {plan.period && <span className="text-sm text-zinc-500">{plan.period}</span>}
                 </div>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-center text-gray-300">
-                    <span className="text-purple-500 mr-2">✓</span>
+                  <li key={i} className="flex items-start gap-2 text-sm text-zinc-400">
+                    <svg className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
                     {feature}
                   </li>
                 ))}
               </ul>
 
-              <button
-                className={`w-full py-3 rounded-full font-semibold transition-all ${
+              <Link
+                href="/contact"
+                className={`block w-full py-2.5 rounded-lg font-medium text-sm text-center transition-all ${
                   plan.popular
-                    ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white hover:shadow-lg hover:shadow-purple-500/50'
-                    : 'bg-white/10 text-white hover:bg-white/20'
+                    ? 'bg-emerald-500 hover:bg-emerald-400 text-black'
+                    : 'border border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500'
                 }`}
               >
-                시작하기
-              </button>
+                {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
+              </Link>
             </div>
           ))}
         </div>
