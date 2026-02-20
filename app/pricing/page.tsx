@@ -3,24 +3,24 @@ import Link from 'next/link'
 import Pricing from '@/components/Pricing'
 
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: '요금제',
   description: 'NeuralX AI 플랫폼의 투명한 가격 정책. Starter 무료 플랜부터 Enterprise 맞춤 솔루션까지.',
 }
 
 export default function PricingPage() {
   return (
-    <main className="min-h-screen bg-[#09090b]">
+    <main className="min-h-screen bg-white">
       <section className="pt-28 pb-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl">
-            <p className="text-emerald-400 text-sm font-medium mb-3 tracking-wide uppercase">Pricing</p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4 tracking-tight">
-              Plans that{' '}
-              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                scale with you
+            <p className="text-primary text-sm font-semibold mb-3 tracking-wide uppercase">Pricing</p>
+            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
+              함께 성장하는{' '}
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                요금제
               </span>
             </h1>
-            <p className="text-lg text-zinc-400 leading-relaxed">
+            <p className="text-lg text-slate-500 leading-relaxed">
               비즈니스 규모에 맞는 최적의 플랜을 선택하세요.
             </p>
           </div>
@@ -29,9 +29,9 @@ export default function PricingPage() {
 
       <Pricing />
 
-      <section className="py-20 px-6 border-t border-zinc-800/50">
+      <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-8 tracking-tight">Frequently Asked Questions</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 tracking-tight">자주 묻는 질문</h2>
           <div className="space-y-3">
             {[
               {
@@ -53,36 +53,36 @@ export default function PricingPage() {
             ].map((faq, index) => (
               <div
                 key={index}
-                className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6 glow-border-hover"
+                className="bg-white border border-slate-200 rounded-2xl p-6 card-hover"
               >
-                <h3 className="text-base font-semibold text-white mb-2">{faq.q}</h3>
-                <p className="text-sm text-zinc-400 leading-relaxed">{faq.a}</p>
+                <h3 className="text-base font-semibold text-slate-900 mb-2">{faq.q}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{faq.a}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24 px-6 border-t border-zinc-800/50">
+      <section className="py-24 px-6 bg-slate-50">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">
-            Still have questions?
+          <h2 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">
+            궁금한 점이 있으신가요?
           </h2>
-          <p className="text-zinc-400 text-lg mb-8">
+          <p className="text-slate-500 text-lg mb-8">
             영업팀과 상담하여 최적의 솔루션을 찾아보세요.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link
               href="/contact"
-              className="bg-emerald-500 hover:bg-emerald-400 text-black font-medium px-6 py-3 rounded-lg transition-all text-sm"
+              className="bg-primary hover:bg-primary-dark text-white font-medium px-6 py-3 rounded-lg transition-all text-sm shadow-lg shadow-blue-500/20"
             >
-              Get started free
+              무료로 시작하기
             </Link>
             <Link
               href="/contact"
-              className="border border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500 px-6 py-3 rounded-lg font-medium transition-all text-sm"
+              className="border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-50 px-6 py-3 rounded-lg font-medium transition-all text-sm"
             >
-              Contact sales
+              영업팀 문의
             </Link>
           </div>
         </div>

@@ -66,9 +66,15 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <link rel="canonical" href="https://neuralx.io" />
-        <meta name="theme-color" content="#10b981" />
+        <meta name="theme-color" content="#2563EB" />
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-[#09090b]`}>
+      <body className={`${inter.variable} font-sans antialiased bg-white text-slate-900`}>
         <Header />
         {children}
         <Footer />
