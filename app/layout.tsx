@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -65,16 +59,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link rel="canonical" href="https://neuralx.io" />
-        <meta name="theme-color" content="#2563EB" />
         <link
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
-          as="style"
-          crossOrigin="anonymous"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-white text-slate-900`}>
+      <body className="font-sans antialiased bg-black text-slate-200">
         <Header />
         {children}
         <Footer />

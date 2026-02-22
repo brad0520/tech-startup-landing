@@ -9,8 +9,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: { DEFAULT: '#2563EB', light: '#3B82F6', dark: '#1D4ED8' },
-        accent: '#06B6D4',
+        emerald: {
+          DEFAULT: "#10B981",
+          light: "#34D399",
+          dark: "#059669",
+        },
+      },
+      fontFamily: {
+        mono: ['"JetBrains Mono"', '"Fira Code"', "Menlo", "monospace"],
       },
     },
   },

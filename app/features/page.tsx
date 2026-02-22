@@ -1,183 +1,160 @@
-import type { Metadata } from 'next'
+'use client'
+
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 
-export const metadata: Metadata = {
-  title: '기능',
-  description: 'NeuralX의 AI 기반 예측 분석, 뉴럴 프로세싱, 실시간 스트리밍 등 강력한 기능을 살펴보세요.',
-}
+const featureBlocks = [
+  {
+    tag: 'Inference',
+    title: '실시간 AI 추론 엔진',
+    desc: '수백만 건의 동시 요청을 밀리초 단위로 처리하는 분산 GPU 추론 클러스터. 자동 배치 처리와 모델 캐싱으로 비용 대비 최고 성능을 제공합니다.',
+    specs: ['평균 12ms 레이턴시', 'GPU A100 / H100 지원', '자동 배치 최적화', 'WebSocket 스트리밍'],
+    code: `const stream = await nx.infer({
+  model: "enterprise-v3",
+  input: "Q3 매출 분석 요청",
+  stream: true,
+});
+
+for await (const chunk of stream) {
+  process.stdout.write(chunk.text);
+}`,
+  },
+  {
+    tag: 'Pipeline',
+    title: 'ML 파이프라인 자동화',
+    desc: '데이터 수집, 전처리, 학습, 평가, 배포까지 전체 머신러닝 라이프사이클을 선언적 코드로 관리합니다. GitOps 방식의 모델 버전 관리를 지원합니다.',
+    specs: ['선언적 파이프라인 DSL', 'GitOps 모델 버전관리', 'A/B 테스트 내장', 'Canary 배포'],
+    code: `const pipeline = nx.pipeline("revenue-forecast")
+  .extract("s3://sales-data/2026/*")
+  .transform([normalize, featureEngineer])
+  .train({
+    model: "xgboost",
+    hyperparams: { depth: 6, lr: 0.01 },
+  })
+  .evaluate({ metric: "rmse", threshold: 0.05 })
+  .deploy({ traffic: { v2: 90, v3: 10 } });`,
+  },
+  {
+    tag: 'Monitor',
+    title: '실시간 모니터링 대시보드',
+    desc: '모델 성능, API 호출량, 에러율, 비용을 실시간으로 모니터링합니다. 이상 탐지 알림과 자동 스케일링 트리거를 지원합니다.',
+    specs: ['실시간 메트릭 수집', '커스텀 알림 설정', '자동 스케일링', '비용 최적화 리포트'],
+    code: `nx.monitor.watch("production-model", {
+  metrics: ["latency", "error_rate", "throughput"],
+  alerts: [{
+    condition: "error_rate > 0.01",
+    channel: "slack:#ml-ops",
+    action: "auto-rollback"
+  }],
+  scaling: {
+    min: 2, max: 16,
+    target: { cpu: 0.7, gpu_memory: 0.8 }
+  }
+});`,
+  },
+  {
+    tag: 'Security',
+    title: '엔터프라이즈급 보안',
+    desc: 'SOC2 Type II, ISO 27001, GDPR 인증을 보유하고 있으며, 데이터는 전송 중·저장 시 모두 AES-256으로 암호화됩니다.',
+    specs: ['SOC2 Type II 인증', 'VPC 내부 배포', 'RBAC / SSO 지원', 'Audit 로그 90일 보관'],
+    code: `nx.auth.configure({
+  sso: {
+    provider: "okta",
+    domain: "company.okta.com"
+  },
+  rbac: {
+    "ml-engineer": ["deploy", "train", "read"],
+    "data-analyst": ["read", "query"],
+    "admin": ["*"]
+  },
+  audit: { retention: "90d", export: "s3" }
+});`,
+  },
+]
 
 export default function FeaturesPage() {
-  const features = [
-    {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22" />
-          <path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93" />
-          <path d="M8.56 13a8 8 0 0 0-2.3 3.5" />
-          <path d="M15.44 13a8 8 0 0 1 2.3 3.5" />
-        </svg>
-      ),
-      title: '예측 분석',
-      description: 'ML 모델 기반 예측 분석으로 비즈니스 트렌드를 사전에 파악하고 의사결정을 지원합니다.',
-      details: [
-        '자연어 처리(NLP) 기반 문서 분석',
-        '예측 분석을 통한 의사결정 지원',
-        '자동화된 워크플로우 최적화',
-        '실시간 데이터 처리 및 분석',
-      ],
-    },
-    {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <path d="M7 7h.01" />
-          <path d="M17 7h.01" />
-          <path d="M7 17h.01" />
-          <path d="M17 17h.01" />
-          <path d="M12 12h.01" />
-        </svg>
-      ),
-      title: '뉴럴 프로세싱',
-      description: '딥러닝 아키텍처로 비정형 데이터를 처리하고 패턴을 자동으로 인식합니다.',
-      details: [
-        'Transformer 기반 자연어 이해',
-        'CNN/RNN 하이브리드 모델',
-        'Transfer Learning 지원',
-        'AutoML 파이프라인',
-      ],
-    },
-    {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-          <path d="m9 12 2 2 4-4" />
-        </svg>
-      ),
-      title: '엔터프라이즈 보안',
-      description: 'SOC2 Type II 인증과 E2E 암호화로 데이터를 보호합니다.',
-      details: [
-        'AES-256-GCM 암호화',
-        '2단계 인증(2FA/MFA)',
-        'GDPR 및 HIPAA 규정 준수',
-        '정기적인 보안 감사 및 침투 테스트',
-      ],
-    },
-    {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-        </svg>
-      ),
-      title: '실시간 스트리밍',
-      description: '밀리초 단위의 실시간 데이터 스트리밍으로 지연 없는 인사이트를 제공합니다.',
-      details: [
-        'Apache Kafka 네이티브 통합',
-        'WebSocket 실시간 푸시',
-        'Event-driven architecture',
-        'Stream processing pipeline',
-      ],
-    },
-    {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M18 20V10" />
-          <path d="M12 20V4" />
-          <path d="M6 20v-6" />
-        </svg>
-      ),
-      title: '오토 스케일링',
-      description: '트래픽에 따라 자동으로 리소스를 확장하고 축소하여 비용을 최적화합니다.',
-      details: [
-        'Kubernetes 기반 오케스트레이션',
-        'GPU 클러스터 자동 스케일링',
-        '비용 최적화 알고리즘',
-        'Zero-downtime 배포',
-      ],
-    },
-    {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <line x1="2" y1="12" x2="22" y2="12" />
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-        </svg>
-      ),
-      title: '글로벌 엣지 네트워크',
-      description: '전 세계 50+ 리전에 분산된 엣지 네트워크로 빠른 응답을 보장합니다.',
-      details: [
-        '50+ 글로벌 엣지 로케이션',
-        'CDN 통합 캐싱',
-        'Anycast DNS 라우팅',
-        '자동 failover 및 복구',
-      ],
-    },
-  ]
+  const revealRefs = useRef<HTMLDivElement[]>([])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add('visible')
+        })
+      },
+      { threshold: 0.1 }
+    )
+    revealRefs.current.forEach((el) => el && observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
+  const addRef = (el: HTMLDivElement | null) => {
+    if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el)
+  }
 
   return (
-    <main className="min-h-screen bg-white">
-      <section className="pt-28 pb-12 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl">
-            <p className="text-primary text-sm font-semibold mb-3 tracking-wide uppercase">Features</p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
-              확장성을 위해 설계,{' '}
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                속도를 위해 최적화
-              </span>
-            </h1>
-            <p className="text-lg text-slate-500 leading-relaxed">
-              프로덕션 환경에서 검증된 AI 인프라로 아이디어를 빠르게 실현하세요.
-            </p>
-          </div>
+    <main className="min-h-screen bg-black pt-24">
+      <section className="py-20 lg:py-28 border-b border-white/5">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <span className="font-mono text-xs text-emerald tracking-widest uppercase">Features</span>
+          <h1 className="text-4xl lg:text-6xl font-black text-white mt-4 tracking-tight">
+            Everything you need to<br />
+            <span className="text-emerald glow-emerald">ship AI at scale</span>
+          </h1>
+          <p className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
+            추론, 학습, 배포, 모니터링까지 — 하나의 SDK로 전체 AI 인프라를 제어합니다.
+          </p>
         </div>
       </section>
 
-      <section className="py-12 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="group bg-white border border-slate-200 rounded-2xl p-6 card-hover"
-              >
-                <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-primary mb-4">
-                  {feature.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-4">
-                  {feature.description}
-                </p>
-                <ul className="space-y-2">
-                  {feature.details.map((detail, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-sm text-slate-500">
-                      <svg className="w-4 h-4 text-primary/60 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      {detail}
+      <div className="max-w-6xl mx-auto px-6">
+        {featureBlocks.map((f, i) => (
+          <section
+            key={f.tag}
+            ref={addRef}
+            className={`reveal py-24 lg:py-32 ${i < featureBlocks.length - 1 ? 'border-b border-white/5' : ''}`}
+          >
+            <div className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-start ${i % 2 === 1 ? 'lg:[direction:rtl]' : ''}`}>
+              <div className={i % 2 === 1 ? 'lg:[direction:ltr]' : ''}>
+                <span className="inline-block font-mono text-xs text-black bg-emerald px-2 py-0.5 rounded font-semibold">
+                  {f.tag}
+                </span>
+                <h2 className="text-3xl lg:text-4xl font-bold text-white mt-4 tracking-tight">{f.title}</h2>
+                <p className="text-slate-400 mt-4 leading-relaxed text-lg">{f.desc}</p>
+                <ul className="mt-6 space-y-3">
+                  {f.specs.map((spec) => (
+                    <li key={spec} className="flex items-center gap-3 text-sm text-slate-300">
+                      <span className="text-emerald">✓</span>
+                      <span className="font-mono">{spec}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className={`terminal-window ${i % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
+                <div className="terminal-header">
+                  <div className="terminal-dot bg-red-500/80" />
+                  <div className="terminal-dot bg-yellow-500/80" />
+                  <div className="terminal-dot bg-green-500/80" />
+                  <span className="ml-2 text-xs font-mono text-slate-500">{f.tag.toLowerCase()}.ts</span>
+                </div>
+                <pre className="p-5 font-mono text-sm text-emerald-light/80 leading-relaxed overflow-x-auto">
+                  <code>{f.code}</code>
+                </pre>
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
 
-      <section className="py-24 px-6 bg-slate-50">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">
-            오늘 바로 시작하세요
-          </h2>
-          <p className="text-slate-500 text-lg mb-8">
-            무료 체험으로 모든 기능을 직접 경험해보세요.
-          </p>
+      <section className="py-24 border-t border-white/5 text-center">
+        <div className="max-w-2xl mx-auto px-6">
+          <h2 className="text-3xl font-black text-white tracking-tight">Ready to build?</h2>
+          <p className="mt-4 text-slate-400 font-mono text-sm">10,000 free API calls. No credit card required.</p>
           <Link
             href="/contact"
-            className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-6 py-3 rounded-lg transition-all text-sm shadow-lg shadow-blue-500/20"
+            className="inline-block mt-6 font-mono text-sm bg-emerald hover:bg-emerald-light text-black font-semibold px-8 py-3 rounded-md transition-all"
           >
-            무료로 시작하기
+            $ neuralx init
           </Link>
         </div>
       </section>

@@ -6,74 +6,125 @@
   scroll-behavior: smooth;
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --primary: #2563eb;
-  --primary-light: #3b82f6;
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Pretendard', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #000;
+  color: #e2e8f0;
   overflow-x: hidden;
 }
 
-/* Gradient mesh blob styles */
-.mesh-blob {
+/* Blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Typewriter effect */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #10B981;
+  animation: typewriter 3s steps(40) 1s forwards, blink 1s step-end infinite;
+}
+
+/* Terminal scan line */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.terminal-scanline {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.08), transparent);
+  animation: scanline 8s linear infinite;
   pointer-events: none;
 }
 
-.mesh-blob-blue {
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
+/* Glow effect */
+.glow-emerald {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 0 40px rgba(16, 185, 129, 0.2);
 }
 
-.mesh-blob-cyan {
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.08) 100%);
+.glow-border {
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.3), 0 0 20px rgba(16, 185, 129, 0.1);
 }
 
-/* Animations */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
+/* Code syntax highlight colors */
+.syntax-keyword { color: #c084fc; }
+.syntax-string { color: #34d399; }
+.syntax-number { color: #fbbf24; }
+.syntax-comment { color: #64748b; }
+.syntax-function { color: #60a5fa; }
+.syntax-property { color: #f472b6; }
+.syntax-operator { color: #94a3b8; }
+
+/* Scroll reveal */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
-  50% {
-    transform: translateY(-12px);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes blob-move {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(20px, -20px) scale(1.05);
-  }
-  66% {
-    transform: translate(-10px, 10px) scale(0.95);
-  }
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animate-blob {
-  animation: blob-move 8s ease-in-out infinite;
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.animate-blob-slow {
-  animation: blob-move 12s ease-in-out infinite;
+/* Terminal window */
+.terminal-window {
+  background: #0a0a0a;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-/* Card hover effect */
-.card-hover {
-  transition: all 0.3s ease;
+.terminal-header {
+  background: #111;
+  border-bottom: 1px solid #1e293b;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.card-hover:hover {
-  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
-  border-color: rgba(37, 99, 235, 0.2);
-  transform: translateY(-2px);
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Grid noise overlay */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Comparison table */
+.compare-row {
+  transition: background 0.2s;
+}
+
+.compare-row:hover {
+  background: rgba(16, 185, 129, 0.05);
 }
